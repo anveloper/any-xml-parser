@@ -1,6 +1,6 @@
 {
   "name": "any-xml-parser",
-  "version": "1.0.0",
+  "version": "0.0.2",
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -10,17 +10,18 @@
   "exports": {
     ".": {
       "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/index.cjs"
     }
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepublishOnly": "npm run build",
+    "build": "tsup"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "description": "",
+  "homepage": "https://anveloper.github.io/any-xml-parser/",
   "devDependencies": {
     "@types/node": "^22.14.1",
     "tsup": "^8.4.0",
