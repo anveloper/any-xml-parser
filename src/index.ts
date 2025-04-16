@@ -1,7 +1,7 @@
 export type XmlNode = {
   type: string;
-  attr?: { [key: string]: string };
   tag?: string;
+  attributes?: { [key: string]: string };
   content?: string;
   children?: XmlNode[];
 };
@@ -18,14 +18,14 @@ export const createXMLParser = <const T extends readonly string[]>(tags: T) => {
   };
 
   const parseAttributes = (str: string) => {
-    const attrs: Record<string, string> = {};
-    const attrPattern = /([a-zA-Z0-9]+)="(.*?)"/g;
+    const attributes: Record<string, string> = {};
+    const attributePattern = /([a-zA-Z0-9]+)="(.*?)"/g;
     let match;
-    while ((match = attrPattern.exec(str))) {
+    while ((match = attributePattern.exec(str))) {
       const [, key, val] = match;
-      attrs[key] = val;
+      attributes[key] = val;
     }
-    return attrs;
+    return attributes;
   };
 
   const parseXML = (xml = "") => {
@@ -60,8 +60,8 @@ export const createXMLParser = <const T extends readonly string[]>(tags: T) => {
         continue;
       }
 
-      const attrs = parseAttributes(rawAttrs);
-      const node = { type: "element", tag: lowerTag, attrs, children: [] };
+      const attributes = parseAttributes(rawAttrs);
+      const node: XmlNode = { type: "element", tag: lowerTag, attributes, children: [] };
 
       current.children?.push(node);
 
